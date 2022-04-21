@@ -100,8 +100,6 @@ namespace DeditecGPIOTest
                     Environment.Exit(0);
                 }
 
-                bool IsActive = false;
-
                 Task.Run(() => 
                 { 
                     while(true)
@@ -129,6 +127,16 @@ namespace DeditecGPIOTest
                             DeLibNET.DapiDOSet1(handle, 3, 0);
                             DeLibNET.DapiDOSet1(handle, 4, 1);
                         }
+
+                        DataDeditec.analog1 = 0 + (DeLibNET.DapiADGetVolt(handle, 0) - 0) * (100 - 0) / (5 - 0) ;
+                        DataDeditec.analog2 = 0 + (DeLibNET.DapiADGetVolt(handle, 1) - 0) * (100 - 0) / (5 - 0);
+
+
+                        DataDeditec.digital1 = DeLibNET.DapiADGetVolt(handle, 4) < 2;
+                        DataDeditec.digital2 = DeLibNET.DapiADGetVolt(handle, 2) < 2;
+                        DataDeditec.digital3 = DeLibNET.DapiADGetVolt(handle, 3) < 2;
+
+
                         Task.Delay(100);
                     }
                 });

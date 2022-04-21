@@ -19,6 +19,13 @@ namespace DeditecGPIOTest.DataObjects
         private float pwm1Value;
         private float pwm2Value;
 
+        private float analog1Value;
+        private float analog2Value;
+
+        private bool digital1Value;
+        private bool digital2Value;
+        private bool digital3Value;
+
         public float pwm1
         {
             get { return this.pwm1Value; }
@@ -39,6 +46,68 @@ namespace DeditecGPIOTest.DataObjects
                 if (value != this.pwm2Value)
                 {
                     this.pwm2Value = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public float analog1
+        {
+            get { return this.analog1Value; }
+            set
+            {
+                if (value != this.analog1Value)
+                {
+                    this.analog1Value = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        public float analog2
+        {
+            get { return this.analog2Value; }
+            set
+            {
+                if (value != this.analog2Value)
+                {
+                    this.analog2Value = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool digital3
+        {
+            get { return this.digital3Value; }
+            set
+            {
+                if (value != this.digital3Value)
+                {
+                    this.digital3Value = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        public bool digital2
+        {
+            get { return this.digital2Value; }
+            set
+            {
+                if (value != this.digital2Value)
+                {
+                    this.digital2Value = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        public bool digital1
+        {
+            get { return this.digital1Value; }
+            set
+            {
+                if (value != this.digital1Value)
+                {
+                    this.digital1Value = value;
                     NotifyPropertyChanged();
                 }
             }

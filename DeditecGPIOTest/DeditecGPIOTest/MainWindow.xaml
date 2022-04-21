@@ -7,10 +7,54 @@
         mc:Ignorable="d"
         Title="Deditec TEST - MecaConcept64" Height="600" Width="1200" WindowStyle="ToolWindow" Closing="Window_Closing" >
     <Grid>
-        <GroupBox Header="Joystick PWM" Margin="10,10,677,10">
+        <GroupBox Header="Joystick PWM" Margin="10,10,941,10">
             <Grid>
                 <ProgressBar Orientation="Vertical" Value="{Binding DataDeditecBind.pwm1}"  Width="100" Margin="120,10,0,10" HorizontalAlignment="Left" Maximum="0" Minimum="-50" />
                 <ProgressBar Orientation="Vertical" Value="{Binding DataDeditecBind.pwm2}"   Width="100" Margin="10,10,0,10" HorizontalAlignment="Left" Minimum="50"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Lecture entrées ANA" Margin="264,10,687,10">
+            <Grid>
+                <ProgressBar Orientation="Vertical" Value="{Binding DataDeditecBind.analog1}"  Width="100" Margin="120,10,0,10" HorizontalAlignment="Left"/>
+                <ProgressBar Orientation="Vertical" Value="{Binding DataDeditecBind.analog2}"   Width="100" Margin="10,10,0,10" HorizontalAlignment="Left"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Lecture entrées digital" Margin="518,10,433,10">
+            <Grid>
+                <Border BorderThickness="2" BorderBrush="Black" Margin="10,20,10,428">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataDeditecBind.digital1}" Value="False">
+                                    <Setter Property="Background" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="Black" Margin="10,118,10,330">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataDeditecBind.digital2}" Value="False">
+                                    <Setter Property="Background" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Border BorderThickness="2" BorderBrush="Black" Margin="10,216,10,232">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataDeditecBind.digital3}" Value="False">
+                                    <Setter Property="Background" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
             </Grid>
         </GroupBox>
 
