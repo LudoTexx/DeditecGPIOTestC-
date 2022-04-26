@@ -89,7 +89,16 @@ namespace DeditecGPIOTest
         {
             try
             {
-                handle = DeLibNET.DapiOpenModule((uint)DeLibNET.ModuleID.NET_ETH_LC, 0);
+                DeLibNET.DAPI_OPENMODULEEX_STRUCT t = new DeLibNET.DAPI_OPENMODULEEX_STRUCT();
+                t.address = "192.168.1.23";
+                t.portno = 9912;
+                t.timeout = 100;
+                t.encryption_type = 0;
+
+                handle = DeLibNET.DapiOpenModuleEx((uint)DeLibNET.ModuleID.NET_ETH_LC, 0, t, 0);
+
+                //handle = DeLibNET.DapiOpenModule((uint)DeLibNET.ModuleID.NET_ETH_LC, 0);
+
                 if (handle == 0)
                 {
                     Console.WriteLine("Could not open module!");
@@ -101,7 +110,7 @@ namespace DeditecGPIOTest
 
                 DeLibNET.DapiSpecialCommand(handle,DeLibNET.DAPI_SPECIAL_CMD_TIMEOUT, DeLibNET.DAPI_SPECIAL_TIMEOUT_DEACTIVATE, 0, 0);
 
-                Task.Run(() =>
+               Task.Run(() =>
                 {
                     try
                     {
@@ -158,7 +167,7 @@ namespace DeditecGPIOTest
                             }
                             else if (JoyRead > 50.99)
                             {
-                                float final = 0 + (JoyRead - 50) * (100 - 0) / (100 - 50);
+                                float final = (float)(0 + (JoyRead - (float)50.99) * (100 - 0) / (100 - (float)50.99));
                                 DeLibNET.DapiPWMOutSet(handle, 1, final);
                                 DeLibNET.DapiPWMOutSet(handle, 0, 0);
 
@@ -190,7 +199,7 @@ namespace DeditecGPIOTest
                             DataDeditec.digital3 = DeLibNET.DapiADGetVolt(handle, 3) < 2;
 
                             Thread.Sleep(10);
-                            //Task.Delay(10000);
+                           // await Task.Delay(50);
                         }
                     }
                     catch (Exception ex) { Console.WriteLine(ex.ToString()); }
