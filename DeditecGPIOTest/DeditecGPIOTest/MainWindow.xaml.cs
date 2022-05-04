@@ -97,26 +97,24 @@ namespace DeditecGPIOTest
 
                 handle = DeLibNET.DapiOpenModuleEx((uint)DeLibNET.ModuleID.NET_ETH_LC, 0, t, 0);
 
-                //handle = DeLibNET.DapiOpenModule((uint)DeLibNET.ModuleID.NET_ETH_LC, 0);
 
                 if (handle == 0)
                 {
-                    Console.WriteLine("Could not open module!");
                     IsError();
-                    Console.WriteLine("Press any key to exit");
-                    //Console.ReadKey();
                     Environment.Exit(0);
                 }
 
-                DeLibNET.DapiSpecialCommand(handle,DeLibNET.DAPI_SPECIAL_CMD_TIMEOUT, DeLibNET.DAPI_SPECIAL_TIMEOUT_DEACTIVATE, 0, 0);
+                DeLibNET.DapiSpecialCommand(handle, DeLibNET.DAPI_SPECIAL_CMD_TIMEOUT, DeLibNET.DAPI_SPECIAL_TIMEOUT_ACTIVATE, 0, 0);
+                DeLibNET.DapiSpecialCommand(handle, DeLibNET.DAPI_SPECIAL_CMD_TIMEOUT, DeLibNET.DAPI_SPECIAL_TIMEOUT_SET_VALUE_SEC, 0, 5);
+                DeLibNET.DapiSpecialCommand(handle, DeLibNET.DAPI_SPECIAL_CMD_TIMEOUT, DeLibNET.DAPI_SPECIAL_TIMEOUT_ACTIVATE_AUTO_REACTIVATE, 0, 0);
+                DeLibNET.DapiSpecialCommand(handle, DeLibNET.DAPI_SPECIAL_CMD_TIMEOUT, DeLibNET.DAPI_SPECIAL_TIMEOUT_DO_VALUE_LOAD_DEFAULT, 0, 0);
 
-               Task.Run(() =>
+                Task.Run(() =>
                 {
                     try
                     {
                         while (true)
                         {
-
                             if (joyStat.Buttons[11])
                             {
                                 DeLibNET.DapiDOSet1(handle, 5, 1);
@@ -199,7 +197,6 @@ namespace DeditecGPIOTest
                             DataDeditec.digital3 = DeLibNET.DapiADGetVolt(handle, 3) < 2;
 
                             Thread.Sleep(10);
-                           // await Task.Delay(50);
                         }
                     }
                     catch (Exception ex) { Console.WriteLine(ex.ToString()); }
@@ -224,10 +221,8 @@ namespace DeditecGPIOTest
 
             if (error != 0)
             {
-                DeLibNET.DapiGetLastErrorText(msg, 256);    //msg.Capacity
-                Console.WriteLine("Error Code = {0}, Message = {1}", Convert.ToString(error), msg);
-                Console.WriteLine("Press any key to exit");
-                //Console.ReadKey();
+                DeLibNET.DapiGetLastErrorText(msg, 256);
+                MessageBox.Show("Error code :" + Convert.ToString(error) + "\n\n\n  Message error : " + msg);
                 Environment.Exit(0);
             }
         }
